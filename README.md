@@ -39,8 +39,8 @@ hook이 하는 일:
 - guard가 못 잡는 것: `cd tools && ...`처럼 폴더를 옮긴 뒤 쓰기, `python -c` 같은 다른 언어로 쓰기, `ln`, `dd`, `chmod`, 같은 명령 안에서 만든 패치 파일, `$(...)`로 만든 경로. 실수 방지용이지 완전한 차단이 아니다. HUMAN.md, NOTES.md, docs/spec.md는 쓰자마자 커밋해 두면 git으로 되살릴 수 있다.
 
 ## 쓰는 법
-Codex에게 "ahnjamin 계정의 codex-hackathon-kit 받아서 깔아 줘"라고 시켜도 된다. 시킬 때는 저장소 이름까지 말한다(AI가 검색으로 찾지 않아도 되게). AI가 받아서 깔 때의 순서:
-1. `git clone https://github.com/ahnjamin/codex-hackathon-kit ~/kit` (보관함 경로가 `~/kit/library`로 맞으려면 이 위치에)
+Codex에게 "ahnjamin 계정에서 hackathon harness 받아서 README대로 깔아 줘"라고 시켜도 된다. "받아 줘"까지만 말하면 clone만 하고 멈춘다. AI가 받아서 깔 때의 순서:
+1. `git clone https://github.com/ahnjamin/codex-hackathon-kit ~/kit` (보관함 경로가 `~/kit/library`로 맞으려면 이 위치에. `~`에 못 쓰면 `/tmp/kit`에 받고 사람에게 경로를 알린다. 작업 폴더 안에 받지 않는다. 제출물에 섞인다)
 2. 작업 폴더에서 `sh ~/kit/setup.sh .`
 3. 아래 venv 설치까지 하고 멈춘다. `git user`가 없다고 나오면 사람에게 묻는다.
 4. 사람이 Codex를 새로 연다(`codex --search`). AGENTS.md와 hook은 새 세션부터 읽히고, `/hooks` 신뢰는 사람만 할 수 있다.
