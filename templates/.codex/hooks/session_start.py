@@ -25,5 +25,5 @@ try:
         out.append("[작업] 진행 중: " + ", ".join(f"{n}번 {t}" for n, t, _ in doing))
 except Exception as e:
     out.append(f"[시간] 타이머 오류: {e}")
-out.append("[규칙] AGENTS.md를 따른다. 큰 작업 하나: 테스트 먼저 → 구현(implementer) → gate → 검증(verifier) → 커밋 → TASKS.md `끝` → HANDOFF.md 커밋 → 사람이 써 보기·코드 읽기·퀴즈 5문항·NOTES.md → 메모·퀴즈 커밋 → 세션 교체 판단.")
+out.append("[규칙] AGENTS.md를 따른다. 큰 작업 하나: 테스트 먼저 → 구현(implementer) → gate → 검증(verifier) → 커밋 → TASKS.md `끝` → HANDOFF.md 커밋 → 다음 구현을 백그라운드로 시작하고 사람은 써 보기·코드 읽기·퀴즈 5문항(한 번에)·NOTES.md → 메모·퀴즈 커밋 → 세션 교체 판단.")
 print("\n".join(out))
