@@ -12,6 +12,11 @@ done)
 [ -n "$skipped" ] && echo "건너뜀(이미 있음) $(echo "$skipped" | wc -l | tr -d ' ')개" && echo "$skipped" | grep -v '^\./\.agents/' | sed 's/^/  /' | head -20
 chmod +x tools/*.sh 2>/dev/null
 
+if [ ! -f .codex/hooks.json ] || [ ! -f .agents/skills/quiz/SKILL.md ]; then
+  echo "WARN .codex/ 또는 .agents/를 깔지 못했습니다. Codex 샌드박스 안에서 돌리면 이 두 폴더와 .git 쓰기가 막힙니다."
+  echo "     hook과 스킬이 빠진 상태입니다. 일반 터미널에서 다시 돌리세요: sh $KIT/setup.sh ."
+fi
+
 # 키트의 핵심 파일이 과제 저장소의 같은 이름 파일 때문에 안 깔렸으면 크게 알린다
 for f in AGENTS.md .codex/hooks.json .codex/hooks/guard.py .codex/hooks/stop.py tools/gate.sh; do
   cmp -s "$KIT/templates/$f" "$f" || echo "WARN $f가 키트 것과 다릅니다(원래 있던 파일). 키트 규칙·hook이 빠질 수 있으니 $KIT/templates/$f와 합치세요"
