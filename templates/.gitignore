@@ -3,5 +3,5 @@ __pycache__/
 .venv/
 .env
 .codex/handoff-auto.md
-.codex/gate-base
+.gate-base
 app.db

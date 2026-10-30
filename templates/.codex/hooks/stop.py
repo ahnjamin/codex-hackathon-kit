@@ -17,8 +17,11 @@ root = subprocess.run(["git", "rev-parse", "--show-toplevel"], capture_output=Tr
 sys.path.insert(0, os.path.join(root, "tools"))
 try:
     import handoff
-    with open(os.path.join(root, ".codex", "handoff-auto.md"), "w", encoding="utf-8") as f:
-        f.write(handoff.snapshot(root) + "\n")
+    try:
+        with open(os.path.join(root, ".codex", "handoff-auto.md"), "w", encoding="utf-8") as f:
+            f.write(handoff.snapshot(root) + "\n")
+    except OSError:  # 자동 기록을 못 써도 HANDOFF 강제는 그대로 돈다
+        pass
     reason = ""
     if handoff.tasks_done_since_handoff(root) > 0:
         reason = ("큰 작업이 끝났는데 HANDOFF.md가 그 뒤로 갱신되지 않았습니다. AGENTS.md의 HANDOFF 규칙대로 "

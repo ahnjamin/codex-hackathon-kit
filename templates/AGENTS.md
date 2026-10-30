@@ -6,7 +6,7 @@
 <!-- AI가 채움: 언어·프레임워크, 실행 명령, 테스트 명령. tools/harness.env와 같게. -->
 - `tools/`는 hook이 AI의 수정을 막는다. 스택이 파이썬/FastAPI가 아니면 `tools/harness.env`(TEST_ALL, SRC_DIRS, CODE_GLOBS 등)와 `tools/run.sh`는 **AI가 바꿀 내용을 사람에게 보여 주고 사람이 직접 고친다.**
 - 실행: `sh tools/run.sh` (서버는 `0.0.0.0`에 띄운다. localhost에만 띄우면 미리보기에서 안 열린다)
-- Codex는 venv를 켠 셸에서 `codex --search`로 연다(`--search`가 없으면 레퍼런스 조사 때 웹 검색이 안 된다). gate와 run.sh는 `.venv`가 있으면 알아서 그 python을 쓴다.
+- Codex는 venv를 켠 셸에서 `codex --search --add-dir .git`으로 연다(`--search`가 없으면 웹 검색이 안 되고, `--add-dir .git`이 없으면 샌드박스가 커밋을 막는다). gate와 run.sh는 `.venv`가 있으면 알아서 그 python을 쓴다.
 - 테스트 하나: `python3 -m pytest -q tests/<파일>`
 - 마칠 때 검사: `sh tools/gate.sh`
 

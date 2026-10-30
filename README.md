@@ -8,8 +8,10 @@ Codex CLI로 3시간 해커톤을 치르는 하네스. 작업 규칙(AGENTS.md),
 git clone https://github.com/ahnjamin/codex-hackathon-kit ~/kit && sh ~/kit/setup.sh .
 python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt
 sh tools/gate.sh && python3 tools/check-hooks.py
-codex --search
+codex --search --add-dir .git
 ```
+`--search`는 웹 검색, `--add-dir .git`은 커밋에 필요하다(기본 샌드박스는 `.git` 쓰기를 막는다).
+
 Codex에게 시켜도 받기는 되지만, 기본 샌드박스가 `.codex/`, `.agents/`, `.git` 쓰기를 막아서 hook과 스킬이 빠진다. 그래서 설치는 터미널에서 한다. 키트는 작업 폴더 안에 받지 않는다(제출물에 섞인다).
 
 ## Codex를 열고 첫 1분

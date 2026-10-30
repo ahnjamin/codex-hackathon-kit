@@ -35,6 +35,7 @@ guard("docs/spec.md 수정은 막는다", "docs/spec.md", 2)
 guard("NOTES.md 수정은 막는다", "NOTES.md", 2)
 guard("tools/ 수정은 막는다", "tools/gate.sh", 2)
 guard(".codex/ 수정은 막는다", ".codex/hooks/guard.py", 2)
+guard(".gate-base(gate 비교 기준) 수정은 막는다", ".gate-base", 2)
 guard("코드 수정은 통과시킨다", "app/main.py", 0)
 guard("패치의 Move to로 tools/에 옮기기는 막는다",
       "*** Begin Patch\n*** Update File: app/x.py\n*** Move to: tools/gate.sh\n*** End Patch", 2)

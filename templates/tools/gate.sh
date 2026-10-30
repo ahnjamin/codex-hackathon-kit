@@ -13,8 +13,8 @@ else
 fi
 
 # 기존 테스트가 느슨해졌는지(막지는 않고 알린다): 지워진 검사 줄, 새로 붙은 skip, 테스트 설정 변경.
-# 비교 기준은 지난번 gate가 통과한 커밋(.codex/gate-base)이다. 그 사이에 커밋해 버린 변경도 잡으려고.
-base=$(cat .codex/gate-base 2>/dev/null)
+# 비교 기준은 지난번 gate가 통과한 커밋(.gate-base)이다. Codex 샌드박스가 .codex/ 쓰기를 막아 루트에 둔다. 그 사이에 커밋해 버린 변경도 잡으려고.
+base=$(cat .gate-base 2>/dev/null)
 git rev-parse --verify -q "$base^{commit}" >/dev/null 2>&1 || base=HEAD
 if ! git rev-parse --verify -q HEAD >/dev/null 2>&1; then
   echo "WARN 첫 커밋이 없어 테스트가 느슨해졌는지 검사하지 못함(git user.name·user.email을 설정하고 커밋하세요)"
@@ -49,7 +49,7 @@ else
 fi
 
 if [ $fail -eq 0 ]; then
-  git rev-parse -q --verify HEAD > .codex/gate-base 2>/dev/null  # 다음 gate의 비교 기준
+  git rev-parse -q --verify HEAD > .gate-base 2>/dev/null  # 다음 gate의 비교 기준
   echo "gate 통과"
 else echo "gate 실패"; fi
 exit $fail

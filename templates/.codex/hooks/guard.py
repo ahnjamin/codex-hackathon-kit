@@ -17,7 +17,7 @@ find -delete·-exec rm도 본다.
 hook 입력이 그 파일에 한 줄씩 남는다."""
 import fnmatch, json, os, re, shlex, subprocess, sys
 
-PROTECTED = ("HUMAN.md", "NOTES.md", "docs/spec.md", "tools/", ".codex/")
+PROTECTED = ("HUMAN.md", "NOTES.md", "docs/spec.md", "tools/", ".codex/", ".gate-base")
 VERIFIER_OK = "docs/verify/"
 ALL_ARGS = {"tee", "rm", "touch", "truncate", "install", "mv", "unlink", "shred",  # 인자 전부가 쓰기 대상
             "vi", "vim", "nvim", "ex", "ed", "nano", "emacs"}
