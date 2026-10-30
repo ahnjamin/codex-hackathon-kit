@@ -154,6 +154,19 @@ with tempfile.TemporaryDirectory() as d:
     out = timer_lines('END_AT=""\n')
     report("비어 있습니다" in out, "END_AT이 비면 비었다고 알린다")
 
+# 2-2. 맥락을 넣는 hook의 출력은 JSON이어야 한다. 글자로 내면 Codex가 "invalid ... JSON output"으로 hook을 실패시킨다
+def hook_json(script, event):
+    r = subprocess.run([sys.executable, os.path.join(ROOT, script)], input=json.dumps({"hook_event_name": event}), capture_output=True, text=True, cwd=ROOT)
+    try:
+        o = json.loads(r.stdout)["hookSpecificOutput"]
+        return o["hookEventName"] == event and "[시간]" in o["additionalContext"]
+    except (ValueError, KeyError, TypeError):
+        return False
+
+
+report(hook_json("tools/timer.py", "UserPromptSubmit"), "타이머 hook은 JSON(hookSpecificOutput)으로 낸다")
+report(hook_json(".codex/hooks/session_start.py", "SessionStart"), "세션 시작 hook은 JSON(hookSpecificOutput)으로 낸다")
+
 # 3. HANDOFF 빈칸 판정과 Stop hook (임시 git 저장소에서 실제로 돌린다)
 with tempfile.TemporaryDirectory() as d:
     os.makedirs(os.path.join(d, "tools"))

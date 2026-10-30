@@ -6,7 +6,7 @@ UserPromptSubmit hook이 메시지마다 부르고(출력이 AI 맥락에 들어
   남은 시간 안에 못 끝낼 것 같은지는 AI가 보고 사람에게 묻는다(AGENTS.md).
 형식이 틀리면 틀렸다고 알린다(조용히 넘어가면 시간 경고가 없는 줄 모른다).
 """
-import datetime, os, re, shlex, subprocess
+import datetime, json, os, re, shlex, subprocess, sys
 
 
 def parse_time(text, now):
@@ -101,9 +101,19 @@ def lines(root, now=None):
     return out
 
 
+def hook_output(event, text):
+    """Codex hook의 맥락 출력. 그냥 글자로 내면 `[`로 시작하는 줄을 JSON으로 읽으려다 hook이 실패한다."""
+    return json.dumps({"hookSpecificOutput": {"hookEventName": event, "additionalContext": text}}, ensure_ascii=False)
+
+
 if __name__ == "__main__":
     try:
         top = subprocess.run(["git", "rev-parse", "--show-toplevel"], capture_output=True, text=True).stdout.strip()
-        print("\n".join(lines(top or os.getcwd())))  # app/ 같은 하위 폴더에서 열어도 tools/harness.env를 찾는다
+        text = "\n".join(lines(top or os.getcwd()))  # app/ 같은 하위 폴더에서 열어도 tools/harness.env를 찾는다
     except Exception as e:  # hook이 죽으면 대화가 막히므로 알리기만 한다
-        print(f"[시간] 타이머 오류: {e}")
+        text = f"[시간] 타이머 오류: {e}"
+    try:
+        event = "" if sys.stdin.isatty() else json.load(sys.stdin).get("hook_event_name", "")
+    except (ValueError, AttributeError):
+        event = ""  # 사람이 직접 돌리거나 입력이 JSON이 아니면 글자로 낸다
+    print(hook_output(event, text) if event else text)

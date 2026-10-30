@@ -15,8 +15,8 @@ codex --search -s workspace-write --add-dir .git
 Codex에게 시켜도 받기는 되지만, 기본 샌드박스가 `.codex/`, `.agents/`, `.git` 쓰기를 막아서 hook과 스킬이 빠진다. 그래서 설치는 터미널에서 한다. 키트는 작업 폴더 안에 받지 않는다(제출물에 섞인다).
 
 ## Codex를 열고 첫 1분
-- `/hooks`에서 이 폴더의 hook을 신뢰한다. 안 하면 경고 없이 hook이 꺼져 있다.
-- 메시지를 보내 `[시간]` 줄이 붙는지 본다.
+- `/hooks`에서 이 폴더의 hook 4개를 신뢰한다(폴더 신뢰와 별개다). 안 하면 경고 없이 hook이 꺼져 있다.
+- Codex에게 "hook이 넣어 준 `[시간]` 줄이 있으면 옮겨 적어 줘"라고 보낸다. 없다고 하면 hook이 안 도는 것이다.
 - `tools/harness.env`의 `END_AT`에 마감 시각을 쓴다.
 
 ## 흐름
