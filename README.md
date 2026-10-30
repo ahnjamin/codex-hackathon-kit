@@ -40,7 +40,7 @@ hook이 하는 일:
 
 ## 쓰는 법
 ```bash
-git clone https://github.com/<계정>/codex-hackathon-kit ~/kit
+git clone https://github.com/ahnjamin/codex-hackathon-kit ~/kit
 sh ~/kit/setup.sh .
 python3 -m venv .venv && . .venv/bin/activate   # macOS는 전역 pip 설치가 막혀 있을 수 있다
 pip install -r requirements.txt
